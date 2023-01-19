@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+{% load static %}
+{% load widget_tweaks %}
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Administrador de Colas | Crear Usuario</title>
+
+  <!-- Google Font: Source Sans Pro -->
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="{% static 'lib/AdminLTE/plugins/fontawesome-free/css/all.min.css' %}">
+  <!-- icheck bootstrap -->
+  <link rel="stylesheet" href="{% static 'lib/AdminLTE/plugins/icheck-bootstrap/icheck-bootstrap.min.css' %}">
+  <!-- Theme style -->
+  <link rel="stylesheet" href="{% static 'lib/AdminLTE/css/adminlte.min.css' %}">
+  <script src="{% static 'jquery/sweetalert2.all.min.js' %}"></script>
+</head>
+<body class="hold-transition login-page">
+<div class="login-box">
+  <div class="login-logo">
+    <a href="{% url 'login' %}"><b>Administrador de Colas</b></a>
+  </div>
+  <!-- /.login-logo -->
+  <div class="card">
+    <div class="card-body login-card-body">
+      <p class="login-box-msg">Crear Usuario</p>
+
+      <form method="post">
+          {% csrf_token %}
+        <div class="input-group mb-3">
+            {{ form.username|add_class:'form-control'|attr:'placeholder:Usuario'|attr:'autocomplete:off'}}
+          <div class="input-group-append">
+            <div class="input-group-text">
+              <span class="fas fa-user-alt"></span>
+            </div>
+          </div>
+        </div>
+        <div class="input-group mb-3">
+            {{ form.password1|add_class:'form-control'|attr:'placeholder:Contraseña'|attr:'autocomplete:off'}}
+          <div class="input-group-append">
+            <div class="input-group-text">
+              <span class="fas fa-lock"></span>
+            </div>
+          </div>
+        </div>
+          <div class="input-group mb-3">
+            {{ form.password2|add_class:'form-control'|attr:'placeholder:Repetir Contraseña'|attr:'autocomplete:off'}}
+          <div class="input-group-append">
+            <div class="input-group-text">
+              <span class="fas fa-lock"></span>
+            </div>
+          </div>
+        </div>
+          <!-- /.col -->
+          <div class="col-lg-12">
+            <button type="submit" class="btn btn-primary btn-block"><i class="fa fa-sign-in-alt"></i> A&ntilde;adir</button>
+          </div>
+          <!-- /.col -->
+      </form>
+
+      <p class="mb-0">
+        <a href="{% url 'login' %}" class="text-center">Ya tienes una Cuenta?</a>
+      </p>
+    </div>
+    <!-- /.login-card-body -->
+  </div>
+    <script type="application/javascript">
+        {% if form.errors %}
+            var errors = '';
+            {% for field in form %}
+                {% for err in field.errors %}
+                    errors+= '{{ er }}\n';
+                {% endfor %}
+            {% endfor %}
+            {% for err in form.non_field_errors %}
+                errors+='{{ err }}\n'
+            {% endfor %}
+            Swal.fire({
+                title: 'Error!',
+                text: errors,
+                icon: 'error'
+            });
+        {% endif %}
+    </script>
+</div>
+<!-- /.login-box -->
+
+<!-- jQuery -->
+<script src="{% static 'lib/AdminLTE/plugins/jquery/jquery.min.js' %}"></script>
+<!-- Bootstrap 4 -->
+<script src="{% static 'lib/AdminLTE/plugins/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+<!-- AdminLTE App -->
+<script src="{% static 'lib/AdminLTE/js/adminlte.min.js' %}"></script>
+</body>
+</html>

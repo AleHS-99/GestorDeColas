@@ -1,0 +1,76 @@
+{% extends 'top-nav.html' %}
+{% load static  %}
+{% load widget_tweaks %}
+{% block body %}
+<div class="content">
+<div class="container">
+<div class="row">
+          <div class="col-12">
+            <div class="card">
+              <div class="card-header">
+                <h3 class="card-title">Cola: {{ title.nombre_de_la_cola }}</h3>
+                    &nbsp;&nbsp;
+                  <a href="{% url 'ListAdd' id%}" class="btn btn-sm btn-primary btn-flat">
+                      <i class="fas fa-plus"></i> A&ntilde;adir
+                  </a>
+              </div>
+              <!-- /.card-header -->
+              <div class="card-body table-responsive p-0">
+                <table class="table table-hover text-nowrap">
+                  <thead>
+                    <tr>
+                      <th>Nro.</th>
+                      <th>Nombre</th>
+                      <th>Apellidos</th>
+                      <th>Opciones</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                  {% for c in object_list %}
+                    <tr>
+                        <td>{{ c.numero }}</td>
+                        <td>{{ c.nombre }}</td>
+                        <td>{{ c.apellidos }}</td>
+                        <td>
+                            <button class="btn btn-xs btn-primary btn-flat" id="{{ c.numero }}"><i class="fas fa-upload"></i></button>
+                      <a href="{% url 'ListEdit' c.codigo %}" class="btn btn-warning btn-xs btn-flat"><i class="fas fa-edit"></i></a>
+                          <a href="{% url 'ListDelete' c.codigo %}" class="btn btn-danger btn-xs btn-flat"><i class="fas fa-trash-alt"></i></a>
+                      </td>
+                    </tr>
+                  {% endfor %}
+                  </tbody>
+                </table>
+              </div>
+              <div class="card-footer">
+
+              </div>
+            </div>
+            <!-- /.card -->
+          </div>
+</div>
+</div>
+</div>
+<script type="application/javascript">
+    $(document).on('click','button',function (event) {
+       let id = this.id;
+       $.ajax({
+           url: window.location.pathname,
+           type: 'POST',
+           data:{
+                'action':'subir',
+               'id': id
+           },
+           datatype: 'json'
+       }).done(function(data){
+            if(!data.hasOwnProperty('error')){
+                location.reload()
+                return false;
+            }
+       }).fail(function(jqXHR, textStatus, errorThrown){
+            alert(textStatus+': '+errorThrown)
+       }).always(function(data){
+            location.reload()
+       });
+    });
+</script>
+{% endblock %}

@@ -1,0 +1,38 @@
+{% extends 'top-nav.html' %}
+{% load static  %}
+{% load widget_tweaks %}
+{% block body %}
+<div class="content">
+<div class="container">
+<div class="row">
+<div class="col-12">
+<form method="post">
+    {% csrf_token %}
+    <div class="card card-default">
+        <div class = "card-header">
+            <h3 class="card-title">
+                <i class="fas fa-ban"></i>
+                {{ title }}
+            </h3>
+        </div>
+        <div class="card-body">
+            <div class="alert alert-dismissible alert-default-danger">
+                ¿Estas seguro de que deseas eliminar el registro #{{ object.codigo }}
+            </div>
+        </div>
+
+        <div class="card-footer">
+            <button type="submit" class="btn btn-primary btn-flat">
+                <i class="fa fa-save"></i> Si, Eliminar
+            </button>
+            <a href="{% url 'ListControl' id %}" class="btn btn-flat btn-info">
+                <i class="fas fa-times"></i> Cancelar
+            </a>
+        </div>
+    </div>
+</form>
+</div>
+</div>
+</div>
+</div>
+{% endblock %}
